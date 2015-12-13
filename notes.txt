@@ -1,0 +1,16 @@
+# PURE COMPONENTS
+
+Using Redux and Immutable, everything can be written as Pure Components (also 'dump components'). Similar to pure functions, these have the following rules:
+
+- A pure component receives all its data as props, like a function receives all its data as arguments. No side effects, including reading data from anywhere else, network requests, etc.
+
+- Generally, has no internal state. What it renders is fully driven by its input props. Same component with same props should be same UI. No hidden state to make them different.
+
+## SIMILARITY
+
+Similar to pure function, we know what a component does by looking at its input and its rendered output.
+
+The state resides in an immutable data structure inside the Store.
+
+React components are a stateless projection of the state at a given point in time.
+
