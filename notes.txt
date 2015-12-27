@@ -22,4 +22,70 @@ This is done by applying the PureRenderMixin that is available as an ADD-ON PACK
 
 Since data never changes within immutable data structures, if the props point to the same values between renders, then component does not need to be re-rendered.
 
+# ROUTING AND MORE UI TESTS
 
+npm install history@1.17.0 react-router@latest
+
+Hey, components which are full page should get their own route. There exists a React router.
+
+If we want to use single routes to single/multiple components, a root Route must be created which points to the APP component
+
+The APP route should be responsible for rendering its child components, as passed in via the this.props.children.
+
+App should not have pure mixins since it would not cause routes to fire because of some dumb internal issue
+
+src/index.jsx should be provided the Router component as the root component of the app. Route table is plugged in as a child component
+
+# CLIENT SIDE REDUX STORE
+
+We begin by thinking of the state of teh application.
+
+we have a UI with two screens. On both of them, we display the pair of entries being voted on. It would make sense to have a state which included a vote entry with such a pair...
+
+In addition, the results screen displays the current tally of votes. That should also be in the vote state
+
+The Voting component renders differently when the user has already voted in the current pair. This is something else that state needs to track...
+
+When there is a winner, we THAT AND ONLY THAT in the state...
+
+Everything is a subset of the server state, except for the hasVoted entry.
+
+This brings us to the implementation of the core logic and the actions and reducers that our Redux Store will use. What should they be?
+
+We can think in terms of what actions that we expect will change the state (makes sense).
+
+User actions should change this state, and currently two possible actions are built into the AI:
+
+- The user clicks one of the vote buttons on the voting screen.
+
+- The user clicks on the Next button on the results screen
+
+Our server is set up to send the current state and this will need to be implemented. A 3rd source of state change.
+
+Begin with the server start update, since its most straight forward. Ideally, client reducer should take snapshot from server and merge it into client state, i.e.
+
+{
+    type: 'SET_STATE',
+    state: {
+        vote: {...}
+    }
+}
+
+And so our reducer will take actions which will provide the default state (server state), or the merged nextState
+
+# GETTING DATA IN FROM REDUX TO REACT
+
+Immutable REDUX STORE that holds our immutable app state. Stateless React components that take immutible inputs.
+
+Pure render would only rerender those components which have a change in state.
+
+React-redux has bindings for this. We can handle by:
+
+1. Mapping the Store state into component input props
+2. Mapping actions into component output callback props
+
+But top-level must first be wrapped inside a react-redux PROVIDER component. Connects component tree to Redux store, enabling mappings for individual components. Will be ancestor of all app components, placed around the Router.
+
+Then, the components need to be wired up to the data. In this case, Vote and Winner are only used by parent components for their props, so they don't need wiring. Only Voting and Results. Placeholder values at App level need to be replaced by store.
+
+CONNECT function from react-redux takes a mapping function as an arg and returns another func that takes a React component class;

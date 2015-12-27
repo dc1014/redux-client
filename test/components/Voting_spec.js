@@ -1,5 +1,5 @@
 import React from 'react';
-import Voting from '../../src/components/Voting';
+import {Voting} from '../../src/components/Voting';
 import {expect} from 'chai';
 import {findDOMNode} from 'react-dom';
 import {List} from 'immutable';
