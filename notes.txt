@@ -14,3 +14,12 @@ The state resides in an immutable data structure inside the Store.
 
 React components are a stateless projection of the state at a given point in time.
 
+# IMMUTABLE DATA AND PURE RENDERING
+
+If immutable data is used in component props, and the component is pure, then React can use a more efficient strategy for detecting changes in the props.
+
+This is done by applying the PureRenderMixin that is available as an ADD-ON PACKAGE. When this mixin is added to a component, it changes the way React checks for changes in the component's props (and state). IT DOES A SHALLOW COMPARE INSTEAD OF A DEEP COMPARE
+
+Since data never changes within immutable data structures, if the props point to the same values between renders, then component does not need to be re-rendered.
+
+
