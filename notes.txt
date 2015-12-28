@@ -89,3 +89,21 @@ But top-level must first be wrapped inside a react-redux PROVIDER component. Con
 Then, the components need to be wired up to the data. In this case, Vote and Winner are only used by parent components for their props, so they don't need wiring. Only Voting and Results. Placeholder values at App level need to be replaced by store.
 
 CONNECT function from react-redux takes a mapping function as an arg and returns another func that takes a React component class;
+
+# SETTING UP SOCKET.IO CLIENT
+
+Need to install and establish a connection to server.
+
+This requires a socket.io connection and on the right event (such as state event), use the store's dispatcher to dispatch the event with its payload.
+
+## Dispatching actions from components ...
+
+What happens when user clicks on something? Vote should be sent to server, and the hasVoted prop should be set on the component to prevent future voting.
+
+Sounds like a good action. This will be the VOTE action, which will populate the HASVOTED entry in the state Map
+
+Keep components pure and unaware of actions or Redux. Instead use connect. Also react-redux can wire up OUTPUT actions with the Redux concept of an ACTION CREATER.
+
+Fair better to factory functions with the name of the action instead of inlining that into the switch case. In other words, pure functions that said return action objects. They encapsulate internal structure of action objects so rest of code does not need to be concerned.
+
+They also document.
