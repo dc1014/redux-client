@@ -107,3 +107,17 @@ Keep components pure and unaware of actions or Redux. Instead use connect. Also 
 Fair better to factory functions with the name of the action instead of inlining that into the switch case. In other words, pure functions that said return action objects. They encapsulate internal structure of action objects so rest of code does not need to be concerned.
 
 They also document.
+
+# SEND ACTIONS TO THE SERVER USING REDUX MIDDLEWARE
+
+We need to send actions to the server when the user clicks the Vote button, or the admin clicks the Next button.
+
+Consider voting:
+
+A VOTE action should be created and dispatched to the client-side Redux store when a user votes.
+
+VOTE actions are handled by the client-side reducer by setting the hasVoted state. The server is ready to receive actions from clients via the action Socket.io event.
+
+VOTE actions are handled by the serverside reducer by registering the vote and updating the tally
+
+
